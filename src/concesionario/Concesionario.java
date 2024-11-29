@@ -1,5 +1,6 @@
 package concesionario;
 
+
 import java.util.concurrent.Semaphore;
 /**
  * Proceso principal
@@ -8,13 +9,15 @@ public class Concesionario {
 
 	public static void main(String[] args) {
 		
-		Vehiculos vehiculoPr = new Vehiculos();
+		//Creamos las instancias que necesitaremos pasar por parámetro a los hilos
+		VehiculosPrueba vehiculoPr = new VehiculosPrueba();
 		
-		Semaphore disponibilidad = new Semaphore(4);
-		
+		Semaphore vehDisponibles = new Semaphore(4);
+			
 		//Arrancamos los hilos 
 		for(int i = 0; i < 9;i++) {
-			PruebaVehiculo pv = new PruebaVehiculo("Cliente " + i,disponibilidad, vehiculoPr);
+			ClientePrueba pv = new ClientePrueba("Cliente " + i, vehDisponibles, vehiculoPr);
+			
 			pv.start();
 			
 		}
