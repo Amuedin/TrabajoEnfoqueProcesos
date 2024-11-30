@@ -29,25 +29,19 @@ public class ClientePrueba extends Thread {
 	public void run() {
 		try {
 			System.out.println(Thread.currentThread().getName() + " está esperando para probar un vehiculo");
-			
-			this.semaforo.acquire(); //da permiso al hilo para acceder a la sección crítica, según el límite que hayamos definido
-			
+			//da permiso al hilo para acceder a la sección crítica, según el límite que hayamos definido
+			this.semaforo.acquire(); 
 			
 			Vehprueba.probarVehiculo();
 			
-			
 			Thread.sleep((int)(Math.random() * 10000)); 
 			
-			
 			Vehprueba.devolverVehiculo();
-			
-			
-			this.semaforo.release();	//libera un permiso para un nuevo hilo en la sección crítica
+			//libera un permiso para que un nuevo hilo acceda a la sección crítica
+			this.semaforo.release();	
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

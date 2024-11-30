@@ -10,8 +10,8 @@ import java.util.TreeMap;
 public class VehiculosPrueba {
 	//Creamos una colección de tipo TreeMap para que guarde la asoción: cliente-vehículo, y que de este modo
 	//devuelvan el mismo vehiculo que retiraron.
-	TreeMap<String, Vehiculo> clienteauto;
-	ArrayList<Vehiculo> parqueVeh = new ArrayList<>();
+	private TreeMap<String, Vehiculo> clienteauto;
+	private ArrayList<Vehiculo> parqueVeh = new ArrayList<>();
 	
 	/**
 	 * 
@@ -30,21 +30,24 @@ public class VehiculosPrueba {
 	 * Método al que llamaremos cuando el cliente va a sacar un vehículo del concesionario,
 	 * modificando la cantidad disponible de estos
 	 */
-	public synchronized void probarVehiculo() {	
+	public  void probarVehiculo() {	
 	
 		//asociamos el hilo en ejecución(cliente) con el coche que eliminamos del Array
 		clienteauto.put(Thread.currentThread().getName(), parqueVeh.removeFirst());
-		System.out.println(Thread.currentThread().getName() + " probando vehiculo " + clienteauto.get(Thread.currentThread().getName()).getName());
+		
+		System.out.println(Thread.currentThread().getName() + " probando vehiculo " 
+		+ clienteauto.get(Thread.currentThread().getName()).getName());
 	}
 	 /**
 	  * Método al que llamaremos cuando el cliente(hilo en ejecución) vaya a devolver 
 	  * un vehículo al concesionario
 	  */
-	public synchronized void devolverVehiculo() {
+	public  void devolverVehiculo() {
 		
-		System.out.println(Thread.currentThread().getName() + " terminó de probar el vehículo " + clienteauto.get(Thread.currentThread().getName()).getName());
+		System.out.println(Thread.currentThread().getName() + " terminó de probar el vehículo " 
+		+ clienteauto.get(Thread.currentThread().getName()).getName());
 		
-		//Con este código devolvemos al array el vehiculo asociado al hilo actual
+		//Devolvemos al array el vehiculo asociado al hilo actual
 		parqueVeh.addFirst(clienteauto.get(Thread.currentThread().getName()));
 		
 	}
